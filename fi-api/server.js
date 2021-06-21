@@ -31,8 +31,9 @@ app.post('/fikirkaydet',(req,res) => {
         fikirTuru,
         fikir
     }, err => {
-        if(err) throw err
-        console.log('Kaydedildi');
+        if(err) res.sendStatus(400)
+        res.sendStatus(200)
+        //res.send('başarılı')
     })
 })
 
