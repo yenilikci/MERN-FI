@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
+import Admin from './Admin'
 
 export default class App extends Component {
   
@@ -11,6 +12,7 @@ export default class App extends Component {
     fikir: "",
     alertSuccessDisplay: "none",
     alertErrorDisplay: "none",
+    adminPanelMi:false
   };
 
   alanlariTemizle = () => {
@@ -39,14 +41,18 @@ export default class App extends Component {
       })
       .then((res) => {
         this.alanlariTemizle()
-        this.setState({ alertSuccessDisplay: "block" });
+        this.setState({ alertSuccessDisplay: "block" })
+        setTimeout(() => {
+          this.setState({ alertSuccessDisplay: "none" })
+        },1000)
       })
       .catch((err) => {
-        this.setState({ alertErrorDisplay: "block" });
+        this.setState({ alertErrorDisplay: "block" })
       });
   };
 
-  render() {
+  render() { 
+    if (this.state.adminPanelMi) return <Admin/>
     return (
       <div className="text-center mt-3">
         <h1>FI APP</h1>
@@ -64,7 +70,7 @@ export default class App extends Component {
             role="alert"
             style={{ display: this.state.alertErrorDisplay }}
           >
-            Fikriniz iletilmiştir!
+            Fikriniz iletilemedi!
           </div>
           <div className="form-group">
             <label htmlFor="exampleFormControlInput1">Ad Soyad</label>
@@ -114,6 +120,10 @@ export default class App extends Component {
             Gönder
           </button>
         </div>
+        <br/>
+        <button className="btn btn-dark" onClick={() => this.setState({adminPanelMi:true})}>
+            Admin Panel
+        </button>
       </div>
     );
   }
