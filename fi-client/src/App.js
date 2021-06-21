@@ -7,12 +7,19 @@ export default class App extends Component {
   state = {
     tamIsim:'',
     emailAdres:'',
-    fikirTuru:'',
+    fikirTuru:'Öneri',
     fikir:''
   }
 
   formuGonder = () => {
-    console.log(this.state);
+    //console.log(this.state);
+    const {tamIsim,emailAdres,fikirTuru,fikir} = this.state
+    axios.post('http://localhost:5555/fikirkaydet',{
+      tamIsim,
+      emailAdres,
+      fikirTuru,
+      fikir
+    })
   }
 
   render() {
