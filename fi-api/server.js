@@ -1,10 +1,17 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import cors from 'cors'
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const mongoose = require('mongoose')
+const Fi = require('./models/Fi')
 
 const app = express()
 app.use(cors())
-app.use(bodyParser())
+app.use(bodyParser.json())
+
+mongoose.connect('mongodb://localhost:27017/fi',{useNewUrlParser:true,useCreateIndex:true},(err) => {
+    if(err) throw err
+    console.log('Başarılı mongoose bağlantısı')
+})
 
 app.get('/kullanici',(req,res) => {
     res.send(
@@ -16,7 +23,17 @@ app.get('/kullanici',(req,res) => {
 })
 
 app.post('/fikirkaydet',(req,res) => {
-    console.log(req.body);
+    //console.log(req.body);
+    const {tamIsim,emailAdres,fikirTuru,fikir} = req.body
+    Fi.create({
+        gonderenIsim:tamIsim,
+        emailAdres,
+        fikirTuru,
+        fikir
+    }, err => {
+        if(err) throw err
+        console.log('Kaydedildi');
+    })
 })
 
 //nodemon -r esm server.js
