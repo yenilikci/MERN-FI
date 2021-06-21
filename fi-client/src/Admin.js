@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class Admin extends Component {
 
     state = {
         username:'',
         password:''
+    }
+
+    girisYap = () => {
+        const {username,password} = this.state
+        axios.post('http://localhost:5555/giris',{ //Key-Val
+            username,
+            password
+        })
     }
 
     render() {
@@ -34,7 +43,7 @@ export default class Admin extends Component {
                   onChange={(e) => this.setState({ password: e.target.value })}
                 />
               </div>
-              <button className="btn btn-success w-100" onClick={this.formuGonder}>
+              <button className="btn btn-success w-100" onClick={this.girisYap}>
                 Giriş
               </button>
             </div>

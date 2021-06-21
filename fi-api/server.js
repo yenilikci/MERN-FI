@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const Fi = require('./models/Fi')
+const Admin = require('./models/Admin')
 
 const app = express()
 app.use(cors())
@@ -13,13 +14,21 @@ mongoose.connect('mongodb://localhost:27017/fi',{useNewUrlParser:true,useCreateI
     console.log('Başarılı mongoose bağlantısı')
 })
 
-app.get('/kullanici',(req,res) => {
-    res.send(
-        {
-            ad:'Melih',
-            soyad:'Çelik'
-        }
-    )
+/*
+app.get('/admin',(req,res) => {
+    Admin.create({
+        username:'yenilikci',
+        password:'123456'
+    }, err => {
+        if(err) res.sendStatus(400)
+        res.sendStatus(200)
+        //res.send('başarılı')
+    })
+}) */
+
+app.post('/giris',(req,res) => {
+    const {username,password} = req.body
+    console.log(username)
 })
 
 app.post('/fikirkaydet',(req,res) => {
