@@ -14,6 +14,11 @@ export default class Admin extends Component {
             username,
             password
         })
+        .then(res => {
+          if(res.data == 'başarılı'){
+            alert("başarılı giriş")
+          }
+        })
     }
 
     render() {

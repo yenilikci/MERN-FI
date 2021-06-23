@@ -28,7 +28,11 @@ app.get('/admin',(req,res) => {
 
 app.post('/giris',(req,res) => {
     const {username,password} = req.body
-    console.log(username)
+    Admin.find({username:username}).then(doc =>{
+        if(doc[0].password === password) {
+            res.send('başarılı')
+        }
+    })
 })
 
 app.post('/fikirkaydet',(req,res) => {
@@ -47,4 +51,7 @@ app.post('/fikirkaydet',(req,res) => {
 })
 
 //nodemon -r esm server.js
-app.listen(5555)
+app.listen(5555, (err) => {
+    if(err) throw err
+    console.log('bağlandık')
+})
